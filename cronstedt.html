@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friherrliga ätten Cronstedt</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#f5f4f0; --surface:#ffffff; --surface2:#f0ede8;
+      --border:rgba(0,0,0,0.10); --border2:rgba(0,0,0,0.18);
+      --text:#1a1916; --text2:#5a5750; --text3:#9a958e;
+      --gold:#C8A84B; --gold-dark:#8B6914; --blue:#1A5FA8;
+      --radius:10px; --radius-lg:14px;
+    }
+    body { font-family: Georgia,'Times New Roman',serif; background:var(--bg); color:var(--text); min-height:100vh; padding:2rem 1rem 4rem; }
+    .page { max-width:860px; margin:0 auto; }
+    .hero { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-lg); padding:3rem 2rem 2.5rem; text-align:center; margin-bottom:1.5rem; position:relative; }
+    .hero::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark)); border-radius:var(--radius-lg) var(--radius-lg) 0 0; }
+    .coat-wrap { display:flex; flex-direction:column; align-items:center; gap:0.6rem; margin:0 auto 1.5rem; }
+    .coat-wrap img { width:160px; height:auto; }
+    .coat-caption { font-size:12px; color:var(--text3); font-style:italic; }
+    .hero .subtitle { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-dark); font-weight:bold; margin-bottom:0.5rem; font-family:Arial,sans-serif; }
+    .hero h1 { font-size:36px; font-weight:normal; color:var(--text); letter-spacing:0.02em; margin-bottom:0.75rem; }
+    .hero p { font-size:15px; color:var(--text2); line-height:1.7; max-width:500px; margin:0 auto 1.5rem; }
+    .badges { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+    .badge { font-size:12px; padding:5px 14px; border-radius:99px; border:0.5px solid var(--border2); color:var(--text2); background:var(--surface2); font-family:Arial,sans-serif; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.5rem; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-bottom:1.5rem; }
+    @media(max-width:640px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+    .stat-card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius); padding:1.25rem; text-align:center; }
+    .stat-num { font-size:28px; color:var(--gold-dark); }
+    .stat-lbl { font-size:12px; color:var(--text3); margin-top:4px; font-family:Arial,sans-serif; }
+    .card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; }
+    .card-hdr { display:flex; align-items:center; gap:12px; margin-bottom:1.25rem; padding-bottom:0.75rem; border-bottom:0.5px solid var(--border); }
+    .card-icon { width:36px; height:36px; border-radius:var(--radius); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .ic-purple{background:#EEEDFE;color:#534AB7} .ic-amber{background:#FAEEDA;color:#854F0B} .ic-teal{background:#E1F5EE;color:#0F6E56} .ic-coral{background:#FAECE7;color:#993C1D} .ic-blue{background:#E6F1FB;color:#185FA5}
+    .card-hdr h2 { font-size:16px; font-weight:normal; color:var(--text); }
+    .card-hdr p { font-size:12px; color:var(--text3); margin-top:2px; font-family:Arial,sans-serif; }
+    .tl-item { display:flex; gap:14px; padding:10px 0; border-bottom:0.5px solid var(--border); }
+    .tl-item:last-child { border-bottom:none; padding-bottom:0; }
+    .tl-year { font-size:12px; font-weight:bold; color:#534AB7; min-width:42px; padding-top:2px; flex-shrink:0; font-family:Arial,sans-serif; }
+    .tl-text p { font-size:14px; color:var(--text); line-height:1.45; }
+    .tl-text span { font-size:12px; color:var(--text3); font-family:Arial,sans-serif; }
+    .person-row { display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:0.5px solid var(--border); }
+    .person-row:last-child { border-bottom:none; }
+    .av { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0; font-family:Arial,sans-serif; }
+    .av-a{background:#FAEEDA;color:#633806} .av-b{background:#E6F1FB;color:#0C447C} .av-p{background:#EEEDFE;color:#3C3489} .av-add{background:var(--surface2);border:1px dashed var(--border2);color:var(--text3)}
+    .person-name { font-size:14px; color:var(--text); }
+    .person-desc { font-size:12px; color:var(--text3); font-family:Arial,sans-serif; }
+    .news-item { display:flex; gap:12px; padding:10px 0; border-bottom:0.5px solid var(--border); align-items:flex-start; }
+    .news-item:last-child { border-bottom:none; }
+    .ndot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+    .news-item p { font-size:14px; color:var(--text); line-height:1.4; }
+    .news-item span { font-size:12px; color:var(--text3); font-family:Arial,sans-serif; }
+    .ev-item { display:flex; gap:12px; padding:9px 0; border-bottom:0.5px solid var(--border); align-items:center; }
+    .ev-item:last-child { border-bottom:none; }
+    .ev-date { background:var(--surface2); border:0.5px solid var(--border); border-radius:var(--radius); padding:5px 10px; text-align:center; min-width:48px; flex-shrink:0; }
+    .ev-date .mo { font-size:10px; color:var(--text2); text-transform:uppercase; font-weight:bold; font-family:Arial,sans-serif; }
+    .ev-date .dy { font-size:20px; color:var(--text); line-height:1.1; }
+    .ev-det p { font-size:14px; color:var(--text); }
+    .ev-det span { font-size:12px; color:var(--text3); font-family:Arial,sans-serif; }
+    .photos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .photo-ph { aspect-ratio:1; background:var(--surface2); border:0.5px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+    .photo-ph .icon { font-size:24px; }
+    .photo-ph span { font-size:11px; color:var(--text3); font-family:Arial,sans-serif; }
+    .motto { text-align:center; margin:1.5rem 0; padding:1rem; border-top:0.5px solid var(--border); border-bottom:0.5px solid var(--border); color:var(--gold-dark); font-style:italic; font-size:18px; letter-spacing:0.04em; }
+    .section-gap { margin-bottom:1.5rem; }
+    .footer { margin-top:2rem; padding:1.25rem; background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer p { font-size:13px; color:var(--text3); font-family:Arial,sans-serif; }
+    .footer small { display:block; font-size:11px; color:var(--text3); margin-top:2px; font-family:Arial,sans-serif; }
+    @media print { body{background:white;padding:0} button{display:none} }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="hero">
+    <div class="coat-wrap">
+      <img src="https://www.adelsvapen.com/wiki/images/4/4a/Cronstedt_A1104A00.png" alt="Friherrliga ätten Cronstedts vapensköld" onerror="this.style.opacity='0.2'" />
+      <span class="coat-caption">Friherrliga ätten Cronstedt &middot; Finlands Riddarhus nr&nbsp;50 &middot; <em>Mihi cura futuri</em></span>
+    </div>
+    <div class="subtitle">Friherrliga ätten</div>
+    <h1>Cronstedt</h1>
+    <p>En svensk-finsk adelsätt med rötter sedan 1686. Ättens finska gren immatrikulerades på Finlands Riddarhus 1818 och upphöjdes i friherrlig värdighet 1870.</p>
+    <div class="badges">
+      <span class="badge">&#127987; Finland</span>
+      <span class="badge">&#128197; Adlad 1686</span>
+      <span class="badge">&#128081; Friherre 1870</span>
+      <span class="badge">&#127963; Riddarhus nr&nbsp;70</span>
+    </div>
+  </header>
+
+  <div class="grid-3 section-gap">
+    <div class="stat-card"><div class="stat-num">1686</div><div class="stat-lbl">Ätten adlad</div></div>
+    <div class="stat-card"><div class="stat-num">1818</div><div class="stat-lbl">Finska riddarhuset</div></div>
+    <div class="stat-card"><div class="stat-num">1870</div><div class="stat-lbl">Friherrlig värdighet</div></div>
+  </div>
+
+  <div class="grid-2 section-gap">
+    <div class="card">
+      <div class="card-hdr"><div class="card-icon ic-purple">&#9201;</div><div><h2>Ättens historia</h2><p>Milstolpar i Finland</p></div></div>
+      <div class="tl-item"><div class="tl-year">1686</div><div class="tl-text"><p>Mårten Gavelius adlas med namnet Cronstedt</p><span>Stockholm &middot; Riddarhuset nr 1104</span></div></div>
+      <div class="tl-item"><div class="tl-year">1718</div><div class="tl-text"><p>Carl Cronstedt upphöjs i friherrlig värdighet av Karl XII</p><span>Vid Eda skans</span></div></div>
+      <div class="tl-item"><div class="tl-year">1790</div><div class="tl-text"><p>Carl Olof Cronstedt segrar i sjöslaget vid Svensksund</p><span>Östersjöns största sjöslag</span></div></div>
+      <div class="tl-item"><div class="tl-year">1818</div><div class="tl-text"><p>Finska grenen immatrikuleras på Finlands Riddarhus</p><span>Nr 70 bland adelsmän</span></div></div>
+      <div class="tl-item"><div class="tl-year">1870</div><div class="tl-text"><p>Carl Olof Cronstedt d.y. upphöjs i friherrlig värdighet</p><span>Nr 50 bland friherrar</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="card-icon ic-amber">&#11088;</div><div><h2>Kända förfäder</h2><p>Ur ättens historia</p></div></div>
+      <div class="person-row"><div class="av av-a">MG</div><div><div class="person-name">Mårten Gavelius Cronstedt</div><div class="person-desc">Stamfar, adlad 1686 &middot; 1638–1709</div></div></div>
+      <div class="person-row"><div class="av av-b">CO</div><div><div class="person-name">Carl Olof Cronstedt d.ä.</div><div class="person-desc">Viceamiral, Sveaborg &middot; 1756–1820</div></div></div>
+      <div class="person-row"><div class="av av-p">CO</div><div><div class="person-name">Carl Olof Cronstedt d.y.</div><div class="person-desc">Senator, geheimeråd, friherre &middot; 1800–1883</div></div></div>
+      <div class="person-row"><div class="av av-add">+</div><div><div class="person-name" style="color:#9a958e;">Lägg till familjemedlem</div><div class="person-desc">Redigera HTML-filen för att lägga till</div></div></div>
+    </div>
+  </div>
+
+  <div class="motto section-gap">&#10077; Mihi cura futuri &#10078; &nbsp;&mdash;&nbsp; <span style="font-size:14px;color:#5a5750;font-style:normal;">Framtiden är min omsorg</span></div>
+
+  <div class="grid-2 section-gap">
+    <div class="card">
+      <div class="card-hdr"><div class="card-icon ic-teal">&#128240;</div><div><h2>Familjenyheter</h2><p>Senaste från familjen</p></div></div>
+      <div class="news-item"><div class="ndot" style="background:#1D9E75;"></div><div><p>Sommarträff planeras — alla grenar inbjudna</p><span>Senaste nytt</span></div></div>
+      <div class="news-item"><div class="ndot" style="background:#534AB7;"></div><div><p>Ny forskning om ättens gods i Vasalänet</p><span>Genealogi</span></div></div>
+      <div class="news-item"><div class="ndot" style="background:#185FA5;"></div><div><p>Familjearkivet digitaliseras</p><span>Pågående projekt</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="card-icon ic-coral">&#128197;</div><div><h2>Kommande evenemang</h2><p>Markera i kalendern</p></div></div>
+      <div class="ev-item"><div class="ev-date"><div class="mo">Jun</div><div class="dy">21</div></div><div class="ev-det"><p>Midsommarträff</p><span>Finland &middot; Hela familjen</span></div></div>
+      <div class="ev-item"><div class="ev-date"><div class="mo">Aug</div><div class="dy">10</div></div><div class="ev-det"><p>Släktforskningsmöte</p><span>Helsingfors</span></div></div>
+      <div class="ev-item"><div class="ev-date"><div class="mo">Dec</div><div class="dy">25</div></div><div class="ev-det"><p>Julsamling</p><span>Traditionsenlig samvaro</span></div></div>
+    </div>
+  </div>
+
+  <div class="card section-gap">
+    <div class="card-hdr"><div class="card-icon ic-blue">&#128247;</div><div><h2>Fotogalleri</h2><p>Ersätt platshållarna med riktiga bilder i HTML-koden</p></div></div>
+    <div class="photos-grid">
+      <div class="photo-ph"><div class="icon">&#127963;</div><span>Sveaborg</span></div>
+      <div class="photo-ph"><div class="icon">&#128106;</div><span>Familjefoto</span></div>
+      <div class="photo-ph"><div class="icon">&#128218;</div><span>Arkiv</span></div>
+      <div class="photo-ph"><div class="icon">&#127795;</div><span>Sommar</span></div>
+      <div class="photo-ph"><div class="icon">&#10052;</div><span>Vinter</span></div>
+      <div class="photo-ph"><div class="icon">+</div><span>Lägg till</span></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>
+      <p>&#128274; Delad endast med familjen Cronstedt</p>
+      <small>Friherrliga ätten Cronstedt &middot; Finlands Riddarhus &middot; Est. 1686</small>
+    </div>
+    <button onclick="window.print()" style="font-size:13px;padding:8px 16px;border:0.5px solid #ccc;border-radius:8px;background:white;cursor:pointer;font-family:Arial,sans-serif;">&#128438; Skriv ut</button>
+  </footer>
+</div>
+</body>
+</html>
